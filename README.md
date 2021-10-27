@@ -1,2 +1,2 @@
 # Discord Banano Faucet
-A very simple discord banano faucet. Uses a discord bot. Needs two `.env` variables, `dbpass` and `token`. Dbpass is the mongodb database password, and token is the discord bot token. Please also change the mongodb connection string into `database.js`.
+A very simple discord banano faucet. Uses a discord bot. Needs three `.env` variables, `dbpass`, `seed` and `token`. Dbpass is the mongodb database password, seed is the banano seed, and token is the discord bot token. Please also change the mongodb connection string into `database.js`.

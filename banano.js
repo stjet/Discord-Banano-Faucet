@@ -10,6 +10,13 @@ db.then((db) => {collection = db.collection("banano");
 });
 
 async function send_banano(addr, id, amount) {
+  let user_addr = await collection.findOne({"addr":addr});
+  console.log(user_addr)
+  if (user_addr) {
+    if (user_addr.last_claim+80000000 > Date.now()) {
+      return false;
+    }
+  }
   let user = await collection.findOne({"id":id});
   if (user) {
     if (user.last_claim+80000000 > Date.now()) {
@@ -19,8 +26,10 @@ async function send_banano(addr, id, amount) {
   let hash = await bananojs.sendBananoWithdrawalFromSeed(process.env.seed, 0, addr, amount);
   if (!user) {
     await collection.insertOne({"id":id,"last_claim":Date.now()});
+    await collection.insertOne({"addr":addr,"last_claim":Date.now()});
   } else {
     await collection.replaceOne({"id":id}, {"id":id,"last_claim":Date.now()});
+    await collection.replaceOne({"addr":addr}, {"addr":addr,"last_claim":Date.now()});
   }
   return hash;
 }

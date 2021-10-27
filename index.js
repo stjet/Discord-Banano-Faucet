@@ -1,7 +1,5 @@
 const Discord = require('discord.js');
-const botIntents = new Discord.Intents();
-botIntents.add(['GUILD_MESSAGES', 'GUILD_MEMBERS', 'GUILDS'])
-const client = new Discord.Client({intents:botIntents});
+const client = new Discord.Client();
 
 const keep_alive = require('./keep_alive.js');
 const banano = require('./banano.js');
