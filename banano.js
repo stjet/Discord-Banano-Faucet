@@ -11,7 +11,6 @@ db.then((db) => {collection = db.collection("banano");
 
 async function send_banano(addr, id, amount) {
   let user_addr = await collection.findOne({"addr":addr});
-  console.log(user_addr)
   if (user_addr) {
     if (user_addr.last_claim+80000000 > Date.now()) {
       return false;
